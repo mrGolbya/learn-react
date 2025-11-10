@@ -3,6 +3,7 @@ import TodoItem from "./TodoItem";
 const TodoList = (props) => {
   const {
     tasks = [],
+    onDeleteTaskButtonClick,
   } = props
   const hasTasks = true
 
@@ -16,6 +17,7 @@ const TodoList = (props) => {
         <TodoItem 
           className="todo__item"
           key={task.id}
+          onDeleteTaskButtonClick={onDeleteTaskButtonClick}
           /*id={task.id}
           title={task.title}
           isDone={task.isDone} или использовать spread*/
