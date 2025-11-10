@@ -1,4 +1,6 @@
-const TodoItem = () => {
+const TodoItem = ({title, isDone}) => {
+
+
   return (
     <li className="todo__item todo-item">
       <input
