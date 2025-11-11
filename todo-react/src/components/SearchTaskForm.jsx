@@ -6,7 +6,10 @@ const SearchTaskForm = (props) => {
   } = props
 
   return (
-    <form className="todo__form">
+    <form 
+    className="todo__form"
+    onSubmit={(e)=>e.preventDefault()}
+    >
         <Field 
           className="todo__field"
           labal="Search task"
