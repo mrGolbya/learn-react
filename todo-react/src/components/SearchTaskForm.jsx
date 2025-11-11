@@ -1,6 +1,10 @@
 import Field from "./Field";
 
-const SearchTaskForm = () => {
+const SearchTaskForm = (props) => {
+  const{
+    onSearchInput,
+  } = props
+
   return (
     <form className="todo__form">
         <Field 
@@ -8,6 +12,7 @@ const SearchTaskForm = () => {
           labal="Search task"
           id="search-task"
           type="search"
+          onInput={(e)=>onSearchInput(e.target.value)}
         />
       </form>
   );

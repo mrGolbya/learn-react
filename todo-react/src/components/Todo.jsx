@@ -20,11 +20,17 @@ const Todo = () => {
   const toggleTaskComplete = (taskId, isDone) => {
     console.log(`задача ${taskId} ${isDone ? 'выполнена' : 'не выполнена!!!'}`)
   };
+
+  const filterTasks = (query) => {
+    console.log(`Поиск: ${query}`)
+  };
   return (
     <div className="todo">
       <h1 className="todo__title">To Do List</h1>
       <AddTaskForm/>
-      <SearchTaskForm />
+      <SearchTaskForm 
+        onSearchInput={filterTasks}
+      />
       <TodoInfo 
         total={tasks.length}
         done={tasks.filter(({isDone})=> isDone).length}
