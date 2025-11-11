@@ -10,11 +10,15 @@ const Todo = () => {
   ]
 
   const deleteAllTasks = () => {
-    console.log('delet all Task')
+    console.log('deleted all Task')
   };
 
   const deleteTask = (taskId) => {
     console.log(`удаляем задачу с id: ${taskId}`)
+  };
+
+  const toggleTaskComplete = (taskId, isDone) => {
+    console.log(`задача ${taskId} ${isDone ? 'выполнена' : 'не выполнена!!!'}`)
   };
   return (
     <div className="todo">
@@ -29,6 +33,7 @@ const Todo = () => {
       <TodoList
        tasks={tasks}
        onDeleteTaskButtonClick={deleteTask}
+       ontoggleTaskCompleteChange={toggleTaskComplete}
       />
     </div>
   );

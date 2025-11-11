@@ -4,6 +4,7 @@ const TodoList = (props) => {
   const {
     tasks = [],
     onDeleteTaskButtonClick,
+    ontoggleTaskCompleteChange,
   } = props
   const hasTasks = true
 
@@ -18,6 +19,7 @@ const TodoList = (props) => {
           className="todo__item"
           key={task.id}
           onDeleteTaskButtonClick={onDeleteTaskButtonClick}
+          ontoggleTaskCompleteChange={ontoggleTaskCompleteChange}
           /*id={task.id}
           title={task.title}
           isDone={task.isDone} или использовать spread*/
