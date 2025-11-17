@@ -24,11 +24,18 @@ const Todo = () => {
     setTasks(
       tasks.filter((task) => task.id !== taskId) //фильтруем массив, работаем с копией массива
     )
-    console.log(`удаляем задачу с id: ${taskId}`)
   };
 
   const toggleTaskComplete = (taskId, isDone) => {
-    console.log(`задача ${taskId} ${isDone ? 'выполнена' : 'не выполнена!!!'}`)
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, isDone}
+        }
+        //перебираем массив задач, если id совпадаем с переданным, возвращаем новый объект и меняем только состояние
+        return task
+      }) 
+    )
   };
 
   const filterTasks = (query) => {
