@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
@@ -19,9 +19,9 @@ const Todo = () => {
   }
 )
 
-  const [newTaskTitle, setNewTaskTitle] = useState()
-
-const [searchQuery, setSearchQuery] = useState('')
+  const [newTaskTitle, setNewTaskTitle] = useState('')
+  const newTaskInputRef = useRef(null)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const deleteAllTasks = () => {
     const isConfirmed = confirm('Are you sure you want to delete all?')
@@ -50,6 +50,8 @@ const [searchQuery, setSearchQuery] = useState('')
   };
 
   const addTask = () => {
+    // const newTaskTitle = newTaskInputRef.current.value
+
     if (newTaskTitle.trim().length > 0) {
       const newTask = {
         id: crypto?.randomUUID() ?? Date.now().toString(),
@@ -59,13 +61,19 @@ const [searchQuery, setSearchQuery] = useState('')
 
       setTasks([...tasks, newTask])
       setNewTaskTitle('')
+      // newTaskInputRef.current.value = ''
       setSearchQuery('')
+      newTaskInputRef.current.focus()
     }
   };
 
   useEffect( () => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks]) //в массив зависимостей указываем tasks, чтобы следить за изменением состояния
+
+  useEffect( () => {
+    newTaskInputRef.current.focus()
+  }, [])
 
   const clearSearchQuery = searchQuery.trim().toLowerCase()
 
@@ -80,6 +88,7 @@ const [searchQuery, setSearchQuery] = useState('')
         addTask={addTask}
         newTaskTitle={newTaskTitle}
         setNewTaskTitle={setNewTaskTitle}
+        newTaskInputRef={newTaskInputRef}
       />
       <SearchTaskForm 
         searchQuery={searchQuery}
