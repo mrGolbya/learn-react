@@ -6,10 +6,18 @@ import TodoList from "./TodoList"
 import { jsx } from "react/jsx-runtime"
 
 const Todo = () => {
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState( () => {
+     const savedTasks = localStorage.getItem('tasks')
+
+     if (savedTasks) {
+      return JSON.parse(savedTasks)
+    }
+    return  [
     {id: 'task-1',title: 'Купить мололока', isDone: false},
     {id: 'task-2',title: 'начать учить React', isDone: true},
-  ])
+  ]
+  }
+)
 
   const [newTaskTitle, setNewTaskTitle] = useState()
 
@@ -57,18 +65,8 @@ const Todo = () => {
   };
 
   useEffect( () => {
-    console.log('компонент Todo смонтирован, загружаем в tasks данные из хранилища')
-    const savedTasks = localStorage.getItem('tasks')
-
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks))
-    }
-  }, [])
-
-  useEffect( () => {
-    console.log('Сохраняем данные в хранилище, т.к. изменился tasks', tasks)
     localStorage.setItem('tasks', JSON.stringify(tasks))
-  }, [tasks]) //в массив зависсимостей указываем tasks, чтобы следить за ьизменением состояния
+  }, [tasks]) //в массив зависимостей указываем tasks, чтобы следить за изменением состояния
 
 
 
