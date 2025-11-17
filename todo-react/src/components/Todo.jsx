@@ -13,10 +13,17 @@ const Todo = () => {
   const [newTaskTitle, setNewTaskTitle] = useState()
 
   const deleteAllTasks = () => {
+    const isConfirmed = confirm('Are you sure you want to delete all?')
+    if (isConfirmed) {
+      setTasks([])
+    }
     console.log('deleted all Task')
   };
 
   const deleteTask = (taskId) => {
+    setTasks(
+      tasks.filter((task) => task.id !== taskId) //фильтруем массив, работаем с копией массива
+    )
     console.log(`удаляем задачу с id: ${taskId}`)
   };
 
