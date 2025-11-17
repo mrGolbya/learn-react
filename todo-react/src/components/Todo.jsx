@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
 import TodoList from "./TodoList"
+import { jsx } from "react/jsx-runtime"
 
 const Todo = () => {
   const [tasks, setTasks] = useState([
@@ -54,6 +55,23 @@ const Todo = () => {
       setNewTaskTitle('')
     }
   };
+
+  useEffect( () => {
+    console.log('компонент Todo смонтирован, загружаем в tasks данные из хранилища')
+    const savedTasks = localStorage.getItem('tasks')
+
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks))
+    }
+  }, [])
+
+  useEffect( () => {
+    console.log('Сохраняем данные в хранилище, т.к. изменился tasks', tasks)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks]) //в массив зависсимостей указываем tasks, чтобы следить за ьизменением состояния
+
+
+
   return (
     <div className="todo">
       <h1 className="todo__title">To Do List</h1>
