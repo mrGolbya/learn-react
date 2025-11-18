@@ -3,7 +3,7 @@ import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
 import TodoList from "./TodoList"
-import { jsx } from "react/jsx-runtime"
+import Button from "./Button"
 
 const Todo = () => {
   const [tasks, setTasks] = useState( () => {
@@ -20,8 +20,11 @@ const Todo = () => {
 )
 
   const [newTaskTitle, setNewTaskTitle] = useState('')
-  const newTaskInputRef = useRef(null)
   const [searchQuery, setSearchQuery] = useState('')
+  
+  const newTaskInputRef = useRef(null)
+  const firstIncompleteTaskRef = useRef(null)
+  const firstIncompleteTaskId = tasks.find( ({isDone}) => !isDone)?.id
 
   const deleteAllTasks = () => {
     const isConfirmed = confirm('Are you sure you want to delete all?')
@@ -94,6 +97,11 @@ const Todo = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+      <Button 
+        onClick={()=>firstIncompleteTaskRef.current?.scrollIntoView({behavior: 'smooth'})}
+      >
+        Show first incomplete task
+      </Button>
       <TodoInfo 
         total={tasks.length}
         done={tasks.filter(({isDone})=> isDone).length}
@@ -101,6 +109,8 @@ const Todo = () => {
       />
       <TodoList
        tasks={tasks}
+       firstIncompleteTaskRef={firstIncompleteTaskRef}
+       firstIncompleteTaskId={firstIncompleteTaskId}
        filteredTasks={filteredTasks}
        onDeleteTaskButtonClick={deleteTask}
        ontoggleTaskCompleteChange={toggleTaskComplete}
