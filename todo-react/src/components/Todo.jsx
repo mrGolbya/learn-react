@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, use } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
@@ -77,6 +77,12 @@ const Todo = () => {
   useEffect( () => {
     newTaskInputRef.current.focus()
   }, [])
+
+  const renderCount = useRef(0)
+  useEffect( () => {
+    renderCount.current++
+    console.log('Todo component render count:', renderCount.current)
+  } ) //без массива зависимостей, чтобы срабатывать при каждом рендере компонента
 
   const clearSearchQuery = searchQuery.trim().toLowerCase()
 
